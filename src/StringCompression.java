@@ -5,10 +5,10 @@ public class StringCompression {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String S = sc.nextLine();
+        String S = sc.nextLine().trim();
 
         if (S.length() == 0) {
-            System.out.println(S);
+            System.out.print(S);
             return;
         }
 
@@ -19,25 +19,21 @@ public class StringCompression {
             if (S.charAt(i) == S.charAt(i - 1)) {
                 count++;
             } else {
-                result.append(S.charAt(i - 1));
-                result.append(count);
+                result.append(S.charAt(i - 1)).append(count);
                 count = 1;
             }
         }
 
-        // last character
-        result.append(S.charAt(S.length() - 1));
-        result.append(count);
+        result.append(S.charAt(S.length() - 1)).append(count);
 
-        // final check
-        if (result.length() < S.length()) {
-            System.out.println(result.toString());
+        String compressed = result.toString();
+
+        if (compressed.length() < S.length()) {
+            System.out.print(compressed);
         } else {
-            System.out.println(S);
+            System.out.print(S);
         }
 
         sc.close();
     }
 }
-
-
