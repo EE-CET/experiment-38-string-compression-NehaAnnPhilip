@@ -1,37 +1,43 @@
-
 import java.util.Scanner;
 
 public class StringCompression {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String S = sc.nextLine().trim();
+        // Check if there is any input at all
+        if (!sc.hasNextLine()) {
+            return;
+        }
 
-        if (S.length() == 0) {
-            System.out.print(S);
+        String S = sc.nextLine();
+
+        // Edge case: empty string
+        if (S.isEmpty()) {
             return;
         }
 
         StringBuilder result = new StringBuilder();
         int count = 1;
 
-        for (int i = 1; i < S.length(); i++) {
-            if (S.charAt(i) == S.charAt(i - 1)) {
+        // Iterate through the string
+        for (int i = 0; i < S.length(); i++) {
+            // Check if next character is the same
+            if (i + 1 < S.length() && S.charAt(i) == S.charAt(i + 1)) {
                 count++;
             } else {
-                result.append(S.charAt(i - 1)).append(count);
-                count = 1;
+                // Character changed or end of string reached
+                result.append(S.charAt(i)).append(count);
+                count = 1; // Reset count
             }
         }
 
-        result.append(S.charAt(S.length() - 1)).append(count);
-
         String compressed = result.toString();
 
+        // Compare lengths: ONLY print compressed if it is strictly shorter
         if (compressed.length() < S.length()) {
-            System.out.print(compressed);
+            System.out.println(compressed);
         } else {
-            System.out.print(S);
+            System.out.println(S);
         }
 
         sc.close();
